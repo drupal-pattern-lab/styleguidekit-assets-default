@@ -30,5 +30,8 @@
     "imagemin-pngcrush": "^0.1.0",
     "main-bower-files": "^1.0.2",
     "yargs": "^1.2.6"
+  },
+  "dependencies": {
+    "twig": "^1.10.5"
   }
 }
