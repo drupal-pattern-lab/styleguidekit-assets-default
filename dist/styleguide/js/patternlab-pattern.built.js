@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,9 +70,78 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+/*!
+ * Panels Util
+ * For both styleguide and viewer
+ *
+ * Copyright (c) 2013-16 Brad Frost, http://bradfrostweb.com & Dave Olsen, http://dmolsen.com
+ * Licensed under the MIT license
+ *
+ * @requires url-handler.js
+ *
+ */
+
+__webpack_require__(1);
+
+var panelsUtil = {
+
+  /**
+  * Add click events to the template that was rendered
+  * @param  {String}      the rendered template for the modal
+  * @param  {String}      the pattern partial for the modal
+  */
+  addClickEvents: function (templateRendered, patternPartial) {
+
+    var els = templateRendered.querySelectorAll('#sg-' + patternPartial + '-tabs li');
+    for (var i = 0; i < els.length; ++i) {
+      els[i].onclick = function (e) {
+        e.preventDefault();
+        var patternPartial = this.getAttribute('data-patternpartial');
+        var panelID = this.getAttribute('data-panelid');
+        panelsUtil.show(patternPartial, panelID);
+      };
+    }
+
+    return templateRendered;
+  },
+
+  /**
+  * Show a specific modal
+  * @param  {String}      the pattern partial for the modal
+  * @param  {String}      the ID of the panel to be shown
+  */
+  show: function (patternPartial, panelID) {
+
+    var els;
+
+    // turn off all of the active tabs
+    els = document.querySelectorAll('#sg-' + patternPartial + '-tabs li');
+    for (i = 0; i < els.length; ++i) {
+      els[i].classList.remove('sg-tab-title-active');
+    }
+
+    // hide all of the panels
+    els = document.querySelectorAll('#sg-' + patternPartial + '-panels div.sg-tabs-panel');
+    for (i = 0; i < els.length; ++i) {
+      els[i].style.display = 'none';
+    }
+
+    // add active tab class
+    document.getElementById('sg-' + patternPartial + '-' + panelID + '-tab').classList.add('sg-tab-title-active');
+
+    // show the panel
+    document.getElementById('sg-' + patternPartial + '-' + panelID + '-panel').style.display = 'flex';
+  }
+
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 /*!
  * URL Handler
  *
@@ -85,9 +154,7 @@ Object.defineProperty(exports, "__esModule", {
  *
  */
 
-const urlHandler = exports.urlHandler = {
-  // 
-  // var urlHandler = {
+var urlHandler = {
 
   // set-up some default vars
   skipBack: false,
@@ -278,81 +345,20 @@ window.onpopstate = function (event) {
 };
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/*!
- * Panels Util
- * For both styleguide and viewer
- *
- * Copyright (c) 2013-16 Brad Frost, http://bradfrostweb.com & Dave Olsen, http://dmolsen.com
- * Licensed under the MIT license
- *
- * @requires url-handler.js
- *
- */
-
+__webpack_require__(3);
 __webpack_require__(0);
+__webpack_require__(4);
 
-var panelsUtil = {
-
-  /**
-  * Add click events to the template that was rendered
-  * @param  {String}      the rendered template for the modal
-  * @param  {String}      the pattern partial for the modal
-  */
-  addClickEvents: function (templateRendered, patternPartial) {
-
-    var els = templateRendered.querySelectorAll('#sg-' + patternPartial + '-tabs li');
-    for (var i = 0; i < els.length; ++i) {
-      els[i].onclick = function (e) {
-        e.preventDefault();
-        var patternPartial = this.getAttribute('data-patternpartial');
-        var panelID = this.getAttribute('data-panelid');
-        panelsUtil.show(patternPartial, panelID);
-      };
-    }
-
-    return templateRendered;
-  },
-
-  /**
-  * Show a specific modal
-  * @param  {String}      the pattern partial for the modal
-  * @param  {String}      the ID of the panel to be shown
-  */
-  show: function (patternPartial, panelID) {
-
-    var els;
-
-    // turn off all of the active tabs
-    els = document.querySelectorAll('#sg-' + patternPartial + '-tabs li');
-    for (var i = 0; i < els.length; ++i) {
-      els[i].classList.remove('sg-tab-title-active');
-    }
-
-    // hide all of the panels
-    els = document.querySelectorAll('#sg-' + patternPartial + '-panels div.sg-tabs-panel');
-    for (var i = 0; i < els.length; ++i) {
-      els[i].style.display = 'none';
-    }
-
-    // add active tab class
-    document.getElementById('sg-' + patternPartial + '-' + panelID + '-tab').classList.add('sg-tab-title-active');
-
-    // show the panel
-    document.getElementById('sg-' + patternPartial + '-' + panelID + '-panel').style.display = 'flex';
-  }
-
-};
-
-module.exports = panelsUtil;
+// 'src/js/postmessage.js', 'src/js/panels-shared.js', 'src/js/modal-styleguide.js'
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -445,28 +451,7 @@ function receiveIframeMessage(event) {
 window.addEventListener("message", receiveIframeMessage, false);
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(2);
-__webpack_require__(1);
-__webpack_require__(12);
-
-// 'src/js/postmessage.js', 'src/js/panels-shared.js', 'src/js/modal-styleguide.js'
-
-/***/ }),
-/* 12 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -484,8 +469,8 @@ __webpack_require__(12);
 *
 */
 
-const panelsUtil = __webpack_require__(1);
 __webpack_require__(0);
+__webpack_require__(1);
 
 var modalStyleguide = {
 
@@ -721,4 +706,4 @@ window.addEventListener('message', modalStyleguide.receiveIframeMessage, false);
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=patternlab-pattern.min.js.map
+//# sourceMappingURL=patternlab-pattern.built.js.map

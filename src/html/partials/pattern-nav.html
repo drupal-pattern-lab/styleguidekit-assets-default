@@ -1,17 +1,35 @@
-{{# patternTypes }}
-  <li><a class="sg-acc-handle">{{ patternTypeUC }}</a><ol class="sg-acc-panel">
-  {{# patternTypeItems }}
-    <li><a class="sg-acc-handle">{{ patternSubtypeUC }}</a><ol class="sg-acc-panel sg-sub-nav">
-    {{# patternSubtypeItems }}
-      <li><a href="patterns/{{ patternPath }}" class="sg-pop  {{# patternState }}sg-pattern-state {{ patternState }}{{/ patternState }}" data-patternpartial="{{ patternPartial }}">{{ patternName }}</a></li>
-    {{/ patternSubtypeItems }}
-    </ol></li>
-  {{/ patternTypeItems }}
-  {{# patternItems }}
-    <li><a href="patterns/{{ patternPath }}" class="sg-pop {{# patternState }}sg-pattern-state {{ patternState }}{{/ patternState }}" data-patternpartial="{{ patternPartial }}">{{ patternName }}</a></li>
-  {{/ patternItems }}
-  </ol></li>
-{{/ patternTypes }}
-{{^ ishControlsHide.views-all }}
+{% if patternTypes %} 
+  {% for pattern in patternTypes if pattern.patternTypeItems or pattern.patternItems %}
+    <li>
+      <a class="sg-acc-handle">{{ pattern.patternTypeUC }}</a>
+      <ol class="sg-acc-panel">
+        {% for itemType in pattern.patternTypeItems %}
+          <li>
+            <a class="sg-acc-handle">{{ itemType.patternSubtypeUC }}</a>
+            <ol class="sg-acc-panel sg-sub-nav">
+              {% for subtypeItem in itemType.patternSubtypeItems %}
+              <li>
+                <a href="patterns/{{ subtypeItem.patternPath }}" class="sg-pop {% if subtypeItem.patternState %} sg-pattern-state {{ subtypeItem.patternState }}{% endif %}" data-patternpartial="{{ subtypeItem.patternPartial }}">
+                  {{ subtypeItem.patternName }}
+                </a>
+              </li>
+              {% endfor %}
+            </ol>
+          </li>
+        {% endfor %}
+        
+        {% for item in pattern.patternItems %}
+          <li>
+            <a href="patterns/{{ item.patternPath }}" class="sg-pop {% if item.patternState %}sg-pattern-state {{ item.patternState }} {% endif %}" data-patternpartial="{{ item.patternPartial }}">
+              {{ item.patternName }}
+            </a>
+          </li>
+        {% endfor %}
+      </ol>
+    </li>
+  {% endfor %}
+{% endif %}
+
+{% if ishControls.ishControlsHide["views-all"] %}
   <li><a href="styleguide/html/styleguide.html" class="sg-pop" data-patternpartial="all">All</a></li>
-{{/ ishControlsHide.views-all }}
+{% endif %}

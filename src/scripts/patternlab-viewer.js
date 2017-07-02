@@ -1,0 +1,12 @@
+require('data-saver');
+require('layout');
+require('modal-viewer');
+require('panels');
+require('panels-util');
+require('panels-viewer');
+require('pattern-finder');
+require('plugin-loader');
+require('postmessage');
+require('prism/prism-languages');
+require('styleguide');
+require('url-handler');
