@@ -1,4 +1,5 @@
-require('data-saver');
+// require('data-saver');
+require('typeahead');
 require('layout');
 require('modal-viewer');
 require('panels');
@@ -6,7 +7,7 @@ require('panels-util');
 require('panels-viewer');
 require('pattern-finder');
 require('plugin-loader');
-require('postmessage');
+// require('postmessage');
 require('prism/prism-languages');
 require('styleguide');
-require('url-handler');
+// require('url-handler');

@@ -8,6 +8,10 @@
  * http://www.opensource.org/licenses/GPL-2.0
  */
  
+ 
+var $ = require('jquery');
+var jQuery = $;
+ 
 (function ($, document, undefined) {
 
   var pluses = /\+/g;

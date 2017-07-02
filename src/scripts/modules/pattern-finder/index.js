@@ -7,7 +7,9 @@
  * @requires url-handler.js
  *
  */
-require('url-handler'); 
+require('url-handler');
+const $ = require('jquery');
+const Bloodhound = require('imports-loader?define=>false!typeahead.js/dist/bloodhound.js');
 
 var patternFinder = {
   

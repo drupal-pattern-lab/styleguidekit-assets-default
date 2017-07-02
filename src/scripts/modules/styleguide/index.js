@@ -7,6 +7,7 @@
 const DataSaver = require('data-saver').DataSaver;
 const urlHandler = require('url-handler').urlHandler;
 const patternFinder = require('pattern-finder');
+const $ = require('jquery');
 require('postmessage');
 
 

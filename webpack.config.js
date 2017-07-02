@@ -9,7 +9,9 @@ module.exports = (options) => {
       modules: [
         'node_modules',
         path.join(__dirname, 'node_modules'),
-        path.join(__dirname, 'src/scripts')
+        path.join(__dirname, 'src/scripts'),
+        path.join(__dirname, 'src/scripts/libs'),
+        path.join(__dirname, 'src/scripts/modules')
       ],
       extensions: ['.js', '.jsx', '.json', '.svg']
     },

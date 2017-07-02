@@ -11,6 +11,8 @@
 const Panels = require('panels');
 const panelsUtil = require('panels-util');
 const urlHandler = require('url-handler').urlHandler;
+const $ = require('jquery');
+const Hogan = require('hogan.js');
 
 var panelsViewer = {
 

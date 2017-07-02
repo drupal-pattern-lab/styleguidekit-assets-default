@@ -8,7 +8,7 @@ module.exports = function (gulp) {
     // gulp.watch('source/images/icons/**/*', ['svgstore', 'patternlab']);
     // gulp.watch(['source/styles/**/*.scss', 'node_modules/pegakit-framework/**/*.scss'], ['styles']);
     gulp.watch(['src/**/*.js'], ['build:js']);
-
+    gulp.watch(['src/html/**/*'], ['build:html']);
     // // Automatically recompile patternlab if our inlined critical JS file changes.
     // gulp.watch(['public/scripts/critical.built.js'], ['patternlab']);
     // // gulp.watch(['public/styles/critical/**/*'], ['patternlab']);

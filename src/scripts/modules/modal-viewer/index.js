@@ -13,6 +13,7 @@
 const urlHandler = require('url-handler').urlHandler;
 const DataSaver = require('data-saver').DataSaver;
 const panelsViewer = require('panels-viewer');
+const $ = require('jquery');
 
 var modalViewer = {
   
@@ -91,7 +92,7 @@ var modalViewer = {
     if (modalViewer.active === false) {
       modalViewer.queryPattern();
     } else {
-      obj = JSON.stringify({ 'event': 'patternLab.annotationsHighlightHide' });
+      var obj = JSON.stringify({ 'event': 'patternLab.annotationsHighlightHide' });
       document.getElementById('sg-viewport').contentWindow.postMessage(obj, modalViewer.targetOrigin);
       modalViewer.close();
     }

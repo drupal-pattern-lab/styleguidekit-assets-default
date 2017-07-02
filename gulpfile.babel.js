@@ -17,25 +17,6 @@ require('./build-tasks/webpack')(gulp, webpackConfig);
 require('./build-tasks/watch')(gulp);
 require('./build-tasks/browsersync')(gulp);
 
-gulp.task('build:js', ['webpack:dev'], function() {
-	return gulp.src(['dist/styleguide/js/**/*'])
-		.pipe(gulp.dest('../../../../public/styleguide/js'));
-		// .pipe(plugins.jshint('.jshintrc'))
-		// .pipe(plugins.jshint.reporter('default'))
-		// .pipe(plugins.resolveDependencies( { pattern: /\* @requires [\s-]*(.*?\.js)/g } ))
-		// .on('error', function(err) { console.log(err.message); })
-		// .pipe(plugins.concat('patternlab-viewer.js'))
-		// .pipe(gulp.dest('dist/styleguide/js'))
-		// .pipe(plugins.rename({suffix: '.min'}))
-		// .pipe(plugins.uglify())
-		// .pipe(copyPublic("styleguide/js"));
-});
-
-gulp.task('serve', function(cb) {
-	runSequence(['browsersync', 'build:js', 'watch'], cb);
-});
-
-
 
 function copyPublic(suffix) {
 	if (args['copy-dist'] !== undefined) {
@@ -44,6 +25,37 @@ function copyPublic(suffix) {
 		return plugins.util.noop();
 	}
 }
+
+
+
+gulp.task('build:html', ['clean:html'], function() {
+	return gulp.src('src/html/index.html')
+		.pipe(plugins.fileInclude({ prefix: '@@', basepath: '@file' }))
+		.pipe(gulp.dest('dist'))
+		.pipe(copyPublic(""));
+});
+
+
+gulp.task('build:js', ['webpack:dev'], function() {
+	return gulp.src(['dist/styleguide/js/**/*'])
+		// .pipe(gulp.dest('../../../../public/styleguide/js'));
+		.pipe(copyPublic("styleguide/js"));
+		// .pipe(plugins.jshint('.jshintrc'))
+		// .pipe(plugins.jshint.reporter('default'))
+		// .pipe(plugins.resolveDependencies( { pattern: /\* @requires [\s-]*(.*?\.js)/g } ))
+		// .on('error', function(err) { console.log(err.message); })
+		// .pipe(plugins.concat('patternlab-viewer.js'))
+		// .pipe(gulp.dest('dist/styleguide/js'))
+		// .pipe(plugins.rename({suffix: '.min'}))
+		// .pipe(plugins.uglify())
+});
+
+gulp.task('serve', function(cb) {
+	runSequence(['browsersync', 'build:js', 'watch', 'build:html'], cb);
+});
+
+
+
 
 /* clean tasks */
 gulp.task('clean:bower', function (cb) {
@@ -105,12 +117,7 @@ gulp.task('build:fonts', ['clean:fonts'], function() {
 		.pipe(copyPublic("styleguide/fonts"));
 });
 
-gulp.task('build:html', ['clean:html'], function() {
-	return gulp.src('src/html/index.html')
-		.pipe(plugins.fileInclude({ prefix: '@@', basepath: '@file' }))
-		.pipe(gulp.dest('dist'))
-		.pipe(copyPublic(""));
-});
+
 
 gulp.task('build:images', ['clean:images'], function() {
 	return gulp.src('src/images/*')

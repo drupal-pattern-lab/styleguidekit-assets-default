@@ -7,7 +7,8 @@
  * @requires ../../node_modules/twig/twig.js
  */
 
-var Twig = require('twig');
+const Twig = require('twig');
+const Hogan = require('hogan.js');
 
 try {
   // Prep Twig for rendering.
