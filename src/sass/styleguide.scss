@@ -627,6 +627,7 @@ $sg-border-radius-med : 6px;
     border-bottom-left-radius: $sg-border-radius-med;
 }
 
+.tt-menu, //Fix for newer versions of typeahead adding a different class
 .tt-dropdown-menu {
     text-transform: lowercase;
     background-color: $sg-gray;

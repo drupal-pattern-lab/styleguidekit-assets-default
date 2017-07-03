@@ -10,9 +10,9 @@
  *
  */
  
-const urlHandler = require('url-handler').urlHandler;
-const DataSaver = require('data-saver').DataSaver;
-const panelsViewer = require('panels-viewer');
+const urlHandler = require('libs/url-handler').urlHandler;
+const DataSaver = require('libs/data-saver').DataSaver;
+const panelsViewer = require('modules/panels-viewer');
 const $ = require('jquery');
 
 var modalViewer = {
@@ -35,7 +35,9 @@ var modalViewer = {
     // watch for resizes and hide the modal container as appropriate when the modal is already hidden
     $(window).on('resize', function() {
       if (DataSaver.findValue('modalActive') === 'false') {
-        modalViewer.slide($('#sg-modal-container').outerHeight());
+        modalViewer.slide(
+          document.getElementById('sg-modal-container').offsetHeight
+        );
       }
     });
     
@@ -154,7 +156,9 @@ var modalViewer = {
   * hide the modal window, add 30px to account for the X box
   */
   hide: function() {
-    modalViewer.slide($('#sg-modal-container').outerHeight()+30);
+    modalViewer.slide(
+      document.getElementById('sg-modal-container').offsetHeight + 30
+    );
   },
   
   /**
@@ -306,5 +310,5 @@ var modalViewer = {
 };
 
 // when the document is ready make sure the modal is ready
-$(document).ready(function() { modalViewer.onReady(); });
+Dispatcher.addListener('setupNavigation', modalViewer.onReady);
 window.addEventListener("message", modalViewer.receiveIframeMessage, false);

@@ -9,7 +9,7 @@
  *
  */
  
-require('url-handler');
+require('libs/url-handler');
 
 var panelsUtil = {
   

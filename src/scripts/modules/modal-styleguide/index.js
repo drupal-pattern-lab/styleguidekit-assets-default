@@ -10,8 +10,8 @@
 *
 */
 
-const panelsUtil = require('panels-util');
-require('url-handler');
+const panelsUtil = require('modules/panels-util');
+require('libs/url-handler');
 
 var modalStyleguide = {
   

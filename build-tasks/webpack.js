@@ -1,9 +1,3 @@
-/* eslint-disable */
-// var browserSync = require('browser-sync').get('BrowserSync Server');
-// var gulpUglify = require('gulp-uglify/minifier');
-// var uglifyJS = require("uglify-js");
-// var webpack = require( 'webpack' );
-
 const gulpif = require('gulp-if');
 const gutil = require('gulp-util');
 const webpack = require('webpack');
@@ -36,7 +30,7 @@ module.exports = function (gulp, webpackConfig) {
   });
 
   gulp.task('webpack:prod', (done) => {
-    const compiler = getReleaseCompiler(webpackConfig);
+    const compiler = getReleaseCompiler(releaseConfig);
     compiler.run((err, stats) => {
       handleWebpackOutput(err, stats);
       done();

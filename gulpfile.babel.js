@@ -50,8 +50,27 @@ gulp.task('build:js', ['webpack:dev'], function() {
 		// .pipe(plugins.uglify())
 });
 
+
+gulp.task('build:js-prod', ['webpack:prod'], function() {
+	return gulp.src(['dist/styleguide/js/**/*'])
+		// .pipe(gulp.dest('../../../../public/styleguide/js'));
+		.pipe(copyPublic("styleguide/js"));
+		// .pipe(plugins.jshint('.jshintrc'))
+		// .pipe(plugins.jshint.reporter('default'))
+		// .pipe(plugins.resolveDependencies( { pattern: /\* @requires [\s-]*(.*?\.js)/g } ))
+		// .on('error', function(err) { console.log(err.message); })
+		// .pipe(plugins.concat('patternlab-viewer.js'))
+		// .pipe(gulp.dest('dist/styleguide/js'))
+		// .pipe(plugins.rename({suffix: '.min'}))
+		// .pipe(plugins.uglify())
+});
+
 gulp.task('serve', function(cb) {
-	runSequence(['browsersync', 'build:js', 'watch', 'build:html'], cb);
+	runSequence(['browsersync', 'build:js', 'watch', 'build:html', 'build:css-patternlab'], cb);
+});
+
+gulp.task('serve:prod', function(cb) {
+	runSequence(['browsersync', 'build:js-prod', 'watch:prod', 'build:html', 'build:css-patternlab'], cb);
 });
 
 
@@ -163,8 +182,8 @@ gulp.task('default', ['build:bower', 'build:css-patternlab', 'build:html', 'buil
 	if (args.watch !== undefined) {
 		gulp.watch(['src/bower_components/**/*'], ['build:bower']);
 		gulp.watch(['src/css/prism-okaidia.css'],['build:css-general']);
-		gulp.watch(['src/sass/styleguide.scss'], ['build:css-patternlab']);
-		gulp.watch(['src/html/*'], ['build:html']);
+
+		// gulp.watch(['src/html/*'], ['build:html']);
 		gulp.watch(['src/js/*'], ['build:js-pattern']);
 	}
 });

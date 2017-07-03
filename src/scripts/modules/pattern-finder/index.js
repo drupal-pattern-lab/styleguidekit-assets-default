@@ -7,9 +7,10 @@
  * @requires url-handler.js
  *
  */
-require('url-handler');
+const urlHandler = require('libs/url-handler').urlHandler;
 const $ = require('jquery');
 const Bloodhound = require('imports-loader?define=>false!typeahead.js/dist/bloodhound.js');
+const loadjs = require('loadjs');
 
 var patternFinder = {
   
@@ -108,7 +109,17 @@ var patternFinder = {
   
 };
 
-patternFinder.init();
+
+
+
+loadjs('/styleguide/data/patternlab-data.js', {
+  success: function() {
+    patternFinder.init();
+  },
+  error: function(depsNotFound) {
+    // console.log("fail");
+  }
+});
 
 window.addEventListener("message", patternFinder.receiveIframeMessage, false);
 

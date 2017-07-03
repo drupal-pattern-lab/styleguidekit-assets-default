@@ -10,17 +10,17 @@
  *
  */
  
-require('styleguide'); 
+require('modules/styleguide');
+const loadjs = require('loadjs');
 
 var pluginLoader = {
-  
   init: function () {
     
     var s, t, l, c, n;
     
-    for (var i = 0; i < plugins.length; ++i) {
+    for (var i = 0; i < window.plugins.length; ++i) {
       
-      var plugin = plugins[i];
+      var plugin = window.plugins[i];
       
       // load the templates
       for (var key in plugin.templates) {
@@ -61,4 +61,11 @@ var pluginLoader = {
   
 };
 
-pluginLoader.init();
+loadjs('/styleguide/data/patternlab-data.js', {
+  success: function() {
+    pluginLoader.init();
+  },
+  error: function(depsNotFound) {
+    console.log("fail");
+  }
+});

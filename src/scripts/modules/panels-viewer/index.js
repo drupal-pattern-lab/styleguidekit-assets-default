@@ -8,11 +8,12 @@
  * @requires url-handler.js
  */
  
-const Panels = require('panels');
-const panelsUtil = require('panels-util');
-const urlHandler = require('url-handler').urlHandler;
+const Panels = require('modules/panels');
+const panelsUtil = require('modules/panels-util');
+const urlHandler = require('libs/url-handler').urlHandler;
 const $ = require('jquery');
 const Hogan = require('hogan.js');
+const prism = require('prismjs');
 
 var panelsViewer = {
 

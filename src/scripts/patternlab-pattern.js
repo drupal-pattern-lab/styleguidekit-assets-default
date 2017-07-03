@@ -1,3 +1,5 @@
-require('postmessage');
-require('panels-util');
-require('modal-styleguide');
+// var Dispatcher = new EventEmitter();
+
+require('libs/postmessage');
+require('modules/panels-util');
+require('modules/modal-styleguide');

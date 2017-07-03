@@ -4,16 +4,33 @@
  * @requires postmessage.js
  */
 
-const DataSaver = require('data-saver').DataSaver;
-const urlHandler = require('url-handler').urlHandler;
-const patternFinder = require('pattern-finder');
+const DataSaver = require('libs/data-saver').DataSaver;
+const urlHandler = require('libs/url-handler').urlHandler;
+const patternFinder = require('modules/pattern-finder');
 const $ = require('jquery');
-require('postmessage');
+const jwerty = require('jwerty-globals-fixed').jwerty;
+const loadjs = require('loadjs');
+require('libs/postmessage');
+
+
+function loadPatternData(){
+  loadjs('/styleguide/data/patternlab-data.js', {
+    success: function() {
+      styleguideInit();
+    },
+    error: function(depsNotFound) {
+      console.log("fail");
+    }
+  });
+}
+Dispatcher.addListener('setupNavigation', loadPatternData);
 
 
 
-// (function (w) {
 
+
+function styleguideInit() {
+  
   var sw = document.body.clientWidth, //Viewport Width
     sh = $(document).height(), //Viewport Height
     minViewportWidth = parseInt(config.ishMinimum), //Minimum Size for Viewport
@@ -637,5 +654,4 @@ require('postmessage');
     
   }
   window.addEventListener("message", receiveIframeMessage, false);
-
-// })(this);
+}
